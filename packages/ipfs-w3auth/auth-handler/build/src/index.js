@@ -39,9 +39,10 @@ function auth(req, res, next) {
             const gaugedAddress = _.includes(passedAddress, chainTypeDelimiter)
                 ? passedAddress
                 : `sub${chainTypeDelimiter}${passedAddress}`;
-            const [chainType, address] = _.split(gaugedAddress, chainTypeDelimiter);
+            const [chainType, address, txMsg] = _.split(gaugedAddress, chainTypeDelimiter);
             isValid = yield authRegistry_1.default.auth(chainType, {
                 address,
+                txMsg,
                 signature: sig,
             });
             if (isValid === true) {
